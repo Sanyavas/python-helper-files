@@ -47,7 +47,8 @@ class ColorFormatter(logging.Formatter):
         return super().format(record_copy)
 
 
-def get_logger(name: str,logs_dir: str | Path = LOGS_DIR,
+def get_logger(name: str,
+               logs_dir: str | Path = LOGS_DIR,
                log_file: str = "logs.log",) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
@@ -59,9 +60,9 @@ def get_logger(name: str,logs_dir: str | Path = LOGS_DIR,
             logger.removeHandler(handler)
             handler.close()
 
-    logs_dir = Path(logs_dir)
-    logs_dir.mkdir(parents=True, exist_ok=True)
-    final_log_path = logs_dir / Path(log_file).name
+    logs_path = Path(logs_dir)
+    logs_path.mkdir(parents=True, exist_ok=True)
+    final_log_path = logs_path / Path(log_file).name
 
     file_handler = RotatingFileHandler(
         final_log_path,
